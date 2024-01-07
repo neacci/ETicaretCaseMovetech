@@ -1,38 +1,44 @@
-.App {
-  text-align: center;
+
+.react-confirm-alert-body > h1 {
+    font-size: 24px !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.react-confirm-alert-button-group {
+    justify-content: center !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.react-confirm-alert-body {
+    text-align: center !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.react-confirm-alert-button-group > button {
+    color: white !important;
 }
 
-.App-link {
-  color: #61dafb;
+    .react-confirm-alert-button-group > button:nth-child(1) {
+        background-color: #32CD32 !important;
+        transition: all .2s ease-in-out;
+    }
+
+    .react-confirm-alert-button-group > button:nth-child(2) {
+        background-color: #DC143C !important;
+        transition: all .2s ease-in-out;
+    }
+
+    .react-confirm-alert-button-group > button:hover {
+        transform: scale(1.1);
+    }
+
+
+
+
+
+.react-confirm-alert-button-group > button:nth-child(1) {
+    background-color: #21ba45 !important;
+    transition: all .2s ease-in-out;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.react-confirm-alert-button-group > button:nth-child(2) {
+    background-color: #a1a1a1 !important;
+    transition: all .2s ease-in-out;
 }
