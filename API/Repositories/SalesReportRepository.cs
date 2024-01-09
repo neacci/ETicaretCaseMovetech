@@ -48,6 +48,15 @@ namespace API.Repositories
                 })
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Order>> GetUserPurchasesAsync(Guid userId)
+        {
+            return await _context.Orders
+                                 .Include(o => o.OrderItemList)
+                                 .ThenInclude(oi => oi.Product)
+                                 .Where(o => o.UserId == userId)
+                                 .ToListAsync();
+        }
     }
 
     public class CategorySalesReport

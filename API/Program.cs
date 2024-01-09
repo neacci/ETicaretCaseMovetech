@@ -1,4 +1,4 @@
-using API.Helpers;
+    using API.Helpers;
 using API.Models;
 using API.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,6 +22,7 @@ builder.Services.AddSingleton<JwtTokenGenerator>();
 builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<CartRepository>();
 builder.Services.AddScoped<SalesReportRepository>();
+builder.Services.AddScoped<OrderRepository>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -42,6 +43,20 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost", builder =>
+       builder.SetIsOriginAllowed(origin => origin.StartsWith("http://localhost"))
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -49,9 +64,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("AllowLocalhost");
 
 app.UseHttpsRedirection();
-app.UseAuthentication(); 
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

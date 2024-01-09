@@ -35,7 +35,8 @@ namespace API.Repositories
             }
             else
             {
-                cart.CartItems.Add(new CartItem { ProductId = productId, Quantity = quantity });
+                _context.CartItems.Add(new CartItem { ProductId = productId, Quantity = quantity, CartItemId = Guid.NewGuid(), CartId = cart.CartId });
+                //cart.CartItems.Add();
             }
 
             await _context.SaveChangesAsync();
@@ -77,6 +78,41 @@ namespace API.Repositories
                 _context.CartItems.RemoveRange(cart.CartItems);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task UpdateItemInCartAsync(Guid userId, Guid productId, int quantity)
+        {
+            var cart = await _context.Carts.Include(c => c.CartItems)
+                                           .FirstOrDefaultAsync(c => c.UserId == userId);
+            if (cart == null)
+            {
+                throw new InvalidOperationException("Sepet bulunamadı.");
+            }
+
+            var cartItem = cart.CartItems.FirstOrDefault(ci => ci.ProductId == productId);
+            if (cartItem == null)
+            {
+                throw new InvalidOperationException("Sepette bu ürün bulunamadı.");
+            }
+
+            if (quantity > 0)
+            {
+                cartItem.Quantity = quantity;
+            }
+            else
+            {
+                cart.CartItems.Remove(cartItem);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<CartItem>> GetCartItemsAsync(Guid userId)
+        {
+            return await _context.CartItems
+                .Where(ci => ci.Cart.UserId == userId)
+                .Include(ci => ci.Product) 
+                .ToListAsync();
         }
     }
 }

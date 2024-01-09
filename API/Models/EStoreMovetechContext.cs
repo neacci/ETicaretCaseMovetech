@@ -73,6 +73,35 @@ namespace API.Models
                 .HasOne(ci => ci.Product)
                 .WithMany(p => p.CartItems)
                 .HasForeignKey(ci => ci.ProductId);
+
+            var electronicsCategory = new Category { CategoryId = Guid.NewGuid(), Name = "Elektronik" };
+            var bookCategory = new Category { CategoryId = Guid.NewGuid(), Name = "Kitap" };
+            modelBuilder.Entity<Category>().HasData(
+               electronicsCategory, bookCategory
+
+            );
+
+            modelBuilder.Entity<Product>().HasData(
+                 new Product
+                 {
+                     ProductId = Guid.NewGuid(),
+                     Name = "Laptop",
+                     Description = "Yüksek performanslı oyun ve iş laptopu.",
+                     Price = 15000.00m,
+                     CategoryId = electronicsCategory.CategoryId
+                 },
+                 new Product
+                 {
+                     ProductId = Guid.NewGuid(),
+                     Name = "Roman Kitabı",
+                     Description = "Çok satan romanlardan biri.",
+                     Price = 45.00m,
+                     CategoryId = bookCategory.CategoryId
+                 }
+             );
+
+
+
         }
 
     }

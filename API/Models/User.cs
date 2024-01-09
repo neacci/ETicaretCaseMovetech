@@ -21,7 +21,7 @@ namespace API.Models
         public User(UserLoginDto userDto)
         {
             UserId = Guid.NewGuid();
-            UserName = userDto.UserName;
+            //UserName = userDto.UserName;
             PasswordHash = userDto.Password;
             Email = userDto.Email;
         }
