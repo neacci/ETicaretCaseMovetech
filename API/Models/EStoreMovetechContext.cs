@@ -81,6 +81,15 @@ namespace API.Models
 
             );
 
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Email = "nacianilakman@gmail.com.com",
+                    UserName = "nacianil",
+                    PasswordHash = "d630bbca6d9aeac6e1eff1e8eccc093be85a92843e248415f3f666fefa5b14e0",
+                    UserId = Guid.NewGuid()
+                });
+
             modelBuilder.Entity<Product>().HasData(
                  new Product
                  {
