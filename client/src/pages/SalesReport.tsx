@@ -72,12 +72,13 @@ const SalesReportPage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {Array.isArray(salesReport) && salesReport.map((report:any, index) => (
+                            {Array.isArray(salesReport) && salesReport.map((report: any, index) => (
+                                report.orderItemList &&
                                 <tr key={index}>
                                     <td>{index + 1}</td>
                                     <td>{new Date(report.orderDate).toLocaleDateString()}</td>
-                                    <td>{report.totalSales ? report.totalSales.toFixed(2) : '0.00'} TL</td>
-                                    <td>{report.itemsSold}</td>
+                                    <td>{report.orderItemList.$values[0].price ? report.orderItemList.$values[0].price : '0.00'} TL</td>
+                                    <td>{report.orderItemList.$values[0].quantity}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -99,13 +100,14 @@ const SalesReportPage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {Array.isArray(userPurchases) && userPurchases.map((purchase:any, index) => (
+                            {Array.isArray(userPurchases) && userPurchases.map((purchase: any, index) => (
+                                purchase.orderItemList &&
                                 <tr key={index}>
                                     <td>{index + 1}</td>
-                                    <td>{new Date(purchase.purchaseDate).toLocaleDateString()}</td>
-                                    <td>{purchase.productName}</td>
-                                    <td>{purchase.price ? purchase.price.toFixed(2) : '0.00'} TL</td>
-                                    <td>{purchase.quantity}</td>
+                                    <td>{new Date(purchase.orderDate).toLocaleDateString()}</td>
+                                    <td>{purchase.orderItemList.$values[0].product.name}</td>
+                                    <td>{purchase.orderItemList.$values[0].price ? purchase.orderItemList.$values[0].price.toFixed(2) : '0.00'} TL</td>
+                                    <td>{purchase.orderItemList.$values[0].quantity}</td>
                                 </tr>
                             ))}
                         </tbody>

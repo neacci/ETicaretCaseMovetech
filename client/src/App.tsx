@@ -15,6 +15,9 @@ import './output.css';
 import { SearchProvider } from './helpers/SeachContext';
 import SalesReport from './pages/SalesReport';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const useAuth = () => {
     return localStorage.getItem('token') != null;
 };
@@ -66,6 +69,8 @@ function App() {
                     <Footer />
                 </div>
             </Router>
+            <ToastContainer />
+
         </SearchProvider>
     );
 }

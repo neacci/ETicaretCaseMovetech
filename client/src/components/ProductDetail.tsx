@@ -4,7 +4,7 @@ import { networkRequest } from '../helpers/NetworkRequest';
 import image1 from '../images/img1.png';
 import image2 from '../images/img2.png';
 import image3 from '../images/img3.png';
-
+import { toast } from 'react-toastify';
 const ProductDetail = () => {
     const [product, setProduct] = useState<any>(null);
     const { id } = useParams<{ id: string }>();
@@ -31,9 +31,9 @@ const ProductDetail = () => {
                 method: 'POST',
                 data: { productId: product.productId, quantity: quantity }
             });
-
+            toast("Sepete Eklendi", { type: 'success', theme: 'dark', position: 'top-center', autoClose: 2500 });
         } catch (error) {
-            
+
         }
     };
     const updateQuantity = async () => {
@@ -49,7 +49,7 @@ const ProductDetail = () => {
                 await removeFromCart();
             }
         } catch (error) {
-            
+
         } finally {
             fetchProduct();
         }
@@ -62,8 +62,10 @@ const ProductDetail = () => {
                 method: 'POST',
                 data: { productId: id }
             });
+            toast("Sepetten çıkarıldı", { type: 'success', theme: 'dark', position: 'top-center', autoClose: 2500 });
+
         } catch (error) {
-            
+
         }
     };
 
@@ -73,7 +75,7 @@ const ProductDetail = () => {
             const response = await networkRequest({ endpoint: `product/${id}`, method: 'GET' });
             setProduct(response);
         } catch (error) {
-            
+
         }
     };
 
@@ -91,7 +93,7 @@ const ProductDetail = () => {
                     setIsInCart(true);
                 }
             } catch (error) {
-                
+
             }
         };
 

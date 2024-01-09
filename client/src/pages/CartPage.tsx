@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { networkRequest } from '../helpers/NetworkRequest';
 
 interface Product {
@@ -54,6 +55,8 @@ const CartPage = () => {
                 method: 'POST',
                 data: { productId: productId }
             });
+            toast("Sepetten cikarildi", { type: 'success', theme: 'dark', position: 'top-center', autoClose: 2500 });
+
         } catch (error) {
             
         }
@@ -68,6 +71,7 @@ const CartPage = () => {
                 endpoint: 'order/create',
                 method: 'POST'
             });
+            toast("Satýn alim gerceklesti", { type: 'success', theme: 'dark', position: 'top-center', autoClose: 2500 });
 
         } catch (error) {
             
